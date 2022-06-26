@@ -1,20 +1,13 @@
 // Dependencies
 const express = require("express");
 const cors = require("cors");
-
-
-const appError = require("./controllers/error/appError");
-const globalErrorHandler = require("./controllers/error/globalError");
-const routeHandler = require("./routes/router");
+const bodyParser = require('body-parser');
+const formSubmit = require('./routes/fromsubmit')
 
 
 // Module Scafolding
 const app = express();
 
-/**
- * @Middleware_Functions
- * ------------------------------------------------------------------------------------------------------------------------
- */
 
 
 // parse json data from user
@@ -26,15 +19,20 @@ app.use(cors({
 }));
 
 
-app.use((req, res, next) => {
-    logger.info(req.url);
-    next();
-})
-
+app.use('/formsubmit', formSubmit)
 
 
 // Handle global error
-app.use(globalErrorHandler)
+app.use((err, req, res, next) => {
+
+    err.statusCode = err.statusCode || 500;
+    err.status = err.status || 'server error';
+
+    res.status(err.statusCode).json({
+        error: err,
+        message: err.message
+    });
+});
 
 // Export Module
 module.exports = app;

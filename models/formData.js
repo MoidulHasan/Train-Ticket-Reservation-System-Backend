@@ -1,5 +1,5 @@
 // Dependencies
-const mongoose = reqire("mongoose");
+const mongoose = require("mongoose");
 
 
 // schema schafolding

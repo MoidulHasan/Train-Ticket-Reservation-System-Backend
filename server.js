@@ -20,8 +20,8 @@ process.on('uncaughtException', err => {
 
 
 // Start the server
-app.listen(environment.port, () => {
-    console.log(`Application is running on port ${environment.port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Application is running on port ${process.env.PORT}`);
 });
 
 process.on('unhandledRejection', err => {
