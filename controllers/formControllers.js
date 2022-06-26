@@ -10,7 +10,11 @@ const randomNumber = () => {
 }
 
 form.saveData = async (req, res, next) => {
+    // console.log(req);
     try {
+
+        // console.log(req.body.Name);
+
         // 1) validate user input
         const Name =
             typeof req.body.Name === "string" && req.body.Name.length > 0 ?
@@ -62,7 +66,7 @@ form.saveData = async (req, res, next) => {
             const userStatus = await formData.findOne({ Name });
             if (userStatus) {
                 res.status(400).json({
-                    status: "Bad Request",
+                    status: "Error!!",
                     message: "This name already exists.",
                 });
             } else {
@@ -83,7 +87,6 @@ form.saveData = async (req, res, next) => {
 
                 // 5) check and response success if application is inserted to database
                 if (application) {
-
                     res.status(201).json({
                         status: "success",
                         message: `Your reservation ID is: ${randomNumber()}`
@@ -92,7 +95,7 @@ form.saveData = async (req, res, next) => {
                     // 6) if user is not inserted
                     res.status(500).json({
                         status: "server error",
-                        message: "There is an internal server error, please try agein letter.",
+                        message: "There is an internal server error, please try agein later.",
                     });
                 }
             }
@@ -106,10 +109,10 @@ form.saveData = async (req, res, next) => {
             next(err);
         }
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         res.status(500).json({
             status: "server error",
-            message: "There is an internal server error, please try agein letter.",
+            message: "There is an internal server error, please try agein later.",
         });
     }
 };

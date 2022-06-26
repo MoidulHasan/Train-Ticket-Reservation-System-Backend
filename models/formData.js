@@ -7,7 +7,6 @@ const formSchema = mongoose.Schema({
     Name: {
         type: String,
         required: true,
-        unique: true,
         select: true,
     },
     Gender: {
